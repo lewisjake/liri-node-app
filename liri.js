@@ -17,11 +17,11 @@ fs.appendFile('log.txt', command + ",", function(err) {
 // swtich command to gather the input from the user. if user entry is error, display message
 switch (command) {
     case "concert-this": // BandsInTown
-    searchBIT(searchTerm);
+    searchBandsInTown(searchTerm);
     break;
     
     case "spotify-this-song": // Spotify
-    searchThisSong(searchTerm);
+    spotifyThisSong(searchTerm);
     break;
     
     case "movie-this": // OMDB
@@ -32,5 +32,40 @@ switch (command) {
     doRandom();
     break;
 }
+function spotifyThisSong(song) {
+    spotify
+    .search({ type: 'track', query: song })
+    .then(function(response){
+        if (response.tracks.total === 0) {
+            errorConditionForSpotify();
+        } else {
+            console.log("Artist: " + response.tracks.items[0].artists[0].name);
+            console.log("Track: " + response.tracks.items[0].name);
+            console.log("Preview URL: " + response.tracks.items[0].preview_url);
+            console.log("Album: " + response.tracks.items[0].album.name);
+        }
+    });
+}
+
+function errorConditionForSpotify() {
+    spotify
+    .search({ type: 'track', query: 'The Sign' })
+    .then(function(response) {
+        for (var i=0;i < response.tracks.items.length; i++) {
+            if (response.tracks.items[i].artists[0].name === "Ace of Base") {
+                console.log("Error, no results found. This is the default song.");
+                console.log("Artist: " + response.tracks.items[i].artists[0].name);
+                console.log("Track: " + response.tracks.items[i].name);
+                console.log("Preview URL: " + response.tracks.items[i].preview_url);
+                console.log("Album: " + response.tracks.items[i].album.name);
+                i = response.tracks.items.length;
+            }
+        }
+    });
+  }
+
+
+    
+
 
 
