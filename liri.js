@@ -64,7 +64,28 @@ function errorConditionForSpotify() {
     });
   }
 
-
+  function movieThis(movie) {
+    axios.get("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&tomatoes=true&apikey=trilogy").then(
+        function(response) {
+            //console.log(response.data);
+            if (response.data.Title != undefined) {
+                console.log("Title: " + response.data.Title);
+                console.log("Year: " + response.data.Year);
+                console.log("imdbRating:: " + response.data.imdbRating);
+                console.log("RottenTomatoes: " + response.data.tomatoRating);
+                console.log("Country:: " + response.data.Country);
+                console.log("Language:: " + response.data.Language);
+                console.log("Plot: " + response.data.Plot);
+                console.log("Actors: " + response.data.Actors);
+            } 
+            else {
+                movieThis("Mr. Nobody");
+                console.log("Error, no results found. This is the default movie.");
+            }
+        });
+      
+  
+}
     
 
 
