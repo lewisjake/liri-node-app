@@ -8,7 +8,6 @@ const Spotify = require('node-spotify-api');
 let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
 let searchTerm = process.argv[3];
-var spotifyTest = process.env.SPOTIFY_ID
  
 fs.appendFile('log.txt', command + ",", function(err) {
     if (err) throw err;
@@ -84,9 +83,18 @@ function errorConditionForSpotify() {
             }
         });
       
+        }       
   
-}
-    
+      function doRandom() {
+        fs.readFile("random.txt", "utf8", function(error, data) {
+            var dataArr = data.split(",");
+            spotifyThisSong(dataArr[1])
+            // If the code experiences any errors it will log the error to the console.
+            if (error) {
+              return console.log(error);
+            }
+        });
+      }
 
 
 
