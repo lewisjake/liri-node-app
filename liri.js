@@ -9,7 +9,7 @@ let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
 let searchTerm = process.argv.splice(3).join(" ");
  
-fs.appendFile('log.txt', command + ",", function(err) {
+fs.appendFile('log.txt', searchTerm, function(err) {
     if (err) throw err;
 });
 
