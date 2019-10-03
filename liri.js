@@ -7,13 +7,13 @@ var axios = require("axios");
 const Spotify = require('node-spotify-api');
 let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
-let searchTerm = process.argv[3];
+let searchTerm = process.argv.splice(3).join(" ");
  
 fs.appendFile('log.txt', command + ",", function(err) {
     if (err) throw err;
 });
 
-// swtich command to gather the input from the user. if user entry is error, display message
+// swtich command to gather the input from the user. 
 switch (command) {
     case "concert-this": // BandsInTown
     searchBandsInTown(searchTerm);
@@ -68,7 +68,7 @@ function errorConditionForSpotify() {
     spotify
     .search({ type: 'track', query: 'The Sign' })
     .then(function(response) {
-        for (var i=0;i < response.tracks.items.length; i++) {
+        for (var i = 0;i < response.tracks.items.length; i++) {
             if (response.tracks.items[i].artists[0].name === "Ace of Base") {
             console.log("\n----------------------------------\n");
             console.log("Error, no results found. This is the default song.");
