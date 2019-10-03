@@ -1,2 +1,2 @@
 # liri-node-app
-![concert-this](concert-this w/ error.png)
+![concert-this](/images/concert-this w/ error.png)
